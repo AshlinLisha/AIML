@@ -1,5 +1,6 @@
 import os, numpy as np, pandas as pd
 from flask import Flask, jsonify, request, render_template
+from flask_cors import CORS
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.preprocessing import StandardScaler
@@ -40,6 +41,7 @@ m = pd.read_csv(f"{D}/message_notes.csv")
 nb = make_pipeline(CountVectorizer(), MultinomialNB()).fit(m.text, m.label)
 
 app = Flask(__name__)
+CORS(app)
 @app.route("/")
 def index(): return render_template("index.html")
 @app.route("/api/health")
